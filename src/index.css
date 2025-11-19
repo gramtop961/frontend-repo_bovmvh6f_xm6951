@@ -10,15 +10,21 @@
     --font-mona: 'Mona Sans', system-ui, sans-serif;
     --font-ibm-plex: 'IBM Plex Sans', system-ui, sans-serif;
     --font-manrope: 'Manrope', system-ui, sans-serif;
+    --font-serif-custom: 'Playfair Display', Georgia, 'Times New Roman', serif;
   }
 
   html {
     font-family: var(--font-sans);
     font-feature-settings: "rlig" 1, "calt" 1;
+    scroll-behavior: smooth;
   }
 
   body {
     @apply antialiased;
+  }
+
+  h1, h2, h3, .font-serif {
+    font-family: var(--font-serif-custom);
   }
 }
 
