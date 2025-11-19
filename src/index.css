@@ -28,6 +28,103 @@
   }
 }
 
+/* Futuristic ambient effects */
+@layer components {
+  .bg-aurora {
+    background: radial-gradient(1200px 800px at 10% 10%, rgba(56,189,248,0.20), transparent 60%),
+                radial-gradient(1000px 700px at 90% 30%, rgba(236,72,153,0.18), transparent 60%),
+                radial-gradient(1200px 900px at 20% 90%, rgba(251,191,36,0.16), transparent 60%),
+                linear-gradient(180deg, rgba(15,23,42,0.85), rgba(15,23,42,0.85));
+    animation: aurora-sweep 18s ease-in-out infinite alternate;
+  }
+
+  .orb {
+    position: absolute;
+    width: 42vmax;
+    height: 42vmax;
+    border-radius: 9999px;
+    filter: blur(60px);
+    opacity: 0.35;
+    mix-blend-mode: screen;
+    animation: float 16s ease-in-out infinite;
+  }
+  .orb-cyan { background: radial-gradient(circle at 30% 30%, rgba(34,211,238,0.8), rgba(56,189,248,0.2), transparent 60%); }
+  .orb-pink { background: radial-gradient(circle at 70% 40%, rgba(244,114,182,0.8), rgba(236,72,153,0.2), transparent 60%); animation-delay: 4s; }
+  .orb-amber { background: radial-gradient(circle at 40% 60%, rgba(251,191,36,0.8), rgba(245,158,11,0.2), transparent 60%); animation-delay: 8s; }
+
+  .glass {
+    @apply bg-white/10 backdrop-blur-md border border-white/20 shadow-[0_0_0_1px_rgba(255,255,255,0.06)_inset];
+  }
+
+  .btn-neo {
+    @apply relative inline-flex items-center justify-center px-6 py-3 rounded-md font-medium transition;
+    color: #0b1220;
+    background: linear-gradient(180deg, #ffffff, #e9eef7);
+    box-shadow: 0 10px 20px -10px rgba(30,41,59,0.5), 0 0 0 1px rgba(148,163,184,0.4) inset;
+  }
+  .btn-neo:after {
+    content: "";
+    position: absolute; inset: -1px;
+    border-radius: inherit;
+    background: conic-gradient(from 180deg at 50% 50%, rgba(34,211,238,0.6), rgba(236,72,153,0.6), rgba(251,191,36,0.6), rgba(34,211,238,0.6));
+    filter: blur(14px); opacity: 0; transition: opacity .4s ease;
+    z-index: -1;
+  }
+  .btn-neo:hover:after { opacity: 0.8; }
+
+  .btn-neo-outline {
+    @apply relative inline-flex items-center justify-center px-6 py-3 rounded-md border text-white transition;
+    border-color: rgba(255,255,255,0.4);
+    background: linear-gradient(180deg, rgba(255,255,255,0.06), rgba(255,255,255,0.02));
+  }
+  .btn-neo-outline:before {
+    content: ""; position: absolute; inset: 0; border-radius: inherit;
+    background: radial-gradient(120px 40px at var(--x,50%) 0%, rgba(255,255,255,0.25), transparent 60%);
+    transition: background-position .2s ease;
+    pointer-events: none;
+  }
+}
+
+@layer utilities {
+  .sheen {
+    background: linear-gradient(92deg, rgba(255,255,255,0.9), rgba(255,255,255,0.55) 45%, rgba(255,255,255,0.85) 55%, rgba(255,255,255,0.9));
+    -webkit-background-clip: text; background-clip: text; color: transparent;
+    filter: drop-shadow(0 6px 30px rgba(34,211,238,0.25));
+    animation: title-glow 6s ease-in-out infinite;
+  }
+
+  .neon-border {
+    position: relative;
+  }
+  .neon-border::after {
+    content: ""; position: absolute; inset: -1px; border-radius: inherit;
+    background: linear-gradient(90deg, rgba(34,211,238,0.6), rgba(236,72,153,0.6), rgba(251,191,36,0.6));
+    filter: blur(10px); opacity: .45; z-index: -1;
+  }
+
+  .motion-safe\:animate-none { animation: none; }
+}
+
+/* Keyframes */
+@keyframes aurora-sweep {
+  0%   { background-position: 0% 0%, 100% 0%, 0% 100%, 0 0; }
+  50%  { background-position: 20% 20%, 80% 30%, 10% 90%, 0 0; }
+  100% { background-position: 40% 40%, 60% 60%, 20% 80%, 0 0; }
+}
+@keyframes float {
+  0%, 100% { transform: translate3d(0,0,0) scale(1); }
+  50% { transform: translate3d(2%, -2%, 0) scale(1.02); }
+}
+@keyframes title-glow {
+  0%, 100% { filter: drop-shadow(0 8px 28px rgba(34,211,238,0.25)); }
+  50% { filter: drop-shadow(0 8px 28px rgba(236,72,153,0.35)); }
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .bg-aurora, .orb { animation: none !important; }
+}
+
 /* Custom utility classes for shadcn/ui patterns */
 @layer utilities {
   .animate-in {
